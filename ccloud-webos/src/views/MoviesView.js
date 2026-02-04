@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { VirtualGridList } from '@enact/sandstone/VirtualList';
 import Poster from '../components/Poster';
 
-const MoviesView = (props) => {
+const MoviesView = ({ onNavigate, ...rest }) => {
 	const [items, setItems] = useState([]);
 
 	useEffect(() => {
@@ -16,27 +16,35 @@ const MoviesView = (props) => {
 		setItems(data);
 	}, []);
 
-	const renderItem = ({ index, ...rest }) => {
+	const handleItemClick = useCallback((index) => {
+		if (onNavigate) {
+			onNavigate(items[index]);
+		}
+	}, [items, onNavigate]);
+
+	const renderItem = useCallback(({ index, ...itemRest }) => {
 		const item = items[index];
 		return (
 			<Poster
-				{...rest}
+				{...itemRest}
 				key={index}
+				index={index}
 				src={item.poster}
 				label={item.title}
-                onClick={() => console.log('Clicked movie', item.id)}
+				onClick={handleItemClick}
 			>
 				{item.title}
 			</Poster>
 		);
-	};
+	}, [items, handleItemClick]);
 
 	return (
 		<VirtualGridList
+			{...rest}
 			dataSize={items.length}
 			itemRenderer={renderItem}
 			itemSize={{ minWidth: 300, minHeight: 450 }}
-            spacing={20}
+			spacing={20}
 		/>
 	);
 };

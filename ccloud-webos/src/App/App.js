@@ -1,33 +1,54 @@
-import React from 'react';
+import { useState, useCallback } from 'react';
 import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
-import TabLayout, {Tab} from '@enact/sandstone/TabLayout';
-
-import MoviesView from '../views/MoviesView';
-import SeriesView from '../views/SeriesView';
-import FavoritesView from '../views/FavoritesView';
-import SearchView from '../views/SearchView';
+import Panels from '@enact/sandstone/Panels';
 import { FavoritesProvider } from '../store/FavoritesContext';
 
-const App = (props) => {
+import HomePanel from '../views/HomePanel';
+import DetailsPanel from '../views/DetailsPanel';
+import PlayerPanel from '../views/PlayerPanel';
+
+const App = () => {
+	const [index, setIndex] = useState(0);
+	const [selectedItem, setSelectedItem] = useState(null);
+	const [videoUrl, setVideoUrl] = useState('');
+
+	// Navigate to Details
+	const handleNavigateDetails = useCallback((item) => {
+		setSelectedItem(item);
+		setIndex(1);
+	}, []);
+
+	// Navigate to Player
+	const handlePlay = useCallback(() => {
+		// Mock URL for now, or use item.url if available
+		const url = selectedItem && selectedItem.url ? selectedItem.url : 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8';
+		setVideoUrl(url);
+		setIndex(2);
+	}, [selectedItem]);
+
+	// Handle Back Button
+	const handleBack = useCallback(() => {
+		setIndex((prevIndex) => Math.max(0, prevIndex - 1));
+	}, []);
+
 	return (
 		<FavoritesProvider>
-			<TabLayout orientation="vertical">
-				<Tab title="Movies" icon="play">
-					<MoviesView />
-				</Tab>
-				<Tab title="Series" icon="list">
-					<SeriesView />
-				</Tab>
-				<Tab title="Favorites" icon="star">
-					<FavoritesView />
-				</Tab>
-				<Tab title="Search" icon="search">
-					<SearchView />
-				</Tab>
-				<Tab title="Settings" icon="gear">
-					<div style={{padding: '50px'}}>Settings Placeholder</div>
-				</Tab>
-			</TabLayout>
+			<Panels
+				index={index}
+				onBack={handleBack}
+			>
+				<HomePanel
+					onNavigate={handleNavigateDetails}
+				/>
+				<DetailsPanel
+					item={selectedItem}
+					onPlay={handlePlay}
+				/>
+				<PlayerPanel
+					url={videoUrl}
+					onBack={handleBack}
+				/>
+			</Panels>
 		</FavoritesProvider>
 	);
 };

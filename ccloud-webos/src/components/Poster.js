@@ -1,11 +1,20 @@
 import ImageItem from '@enact/sandstone/ImageItem';
-import React from 'react';
+import { useCallback } from 'react';
 
-const Poster = (props) => (
-	<ImageItem
-		{...props}
-		orientation="vertical"
-	/>
-);
+const Poster = ({ onClick, index, ...rest }) => {
+	const handleClick = useCallback(() => {
+		if (onClick) {
+			onClick(index);
+		}
+	}, [index, onClick]);
+
+	return (
+		<ImageItem
+			{...rest}
+			onClick={handleClick}
+			orientation="vertical"
+		/>
+	);
+};
 
 export default Poster;

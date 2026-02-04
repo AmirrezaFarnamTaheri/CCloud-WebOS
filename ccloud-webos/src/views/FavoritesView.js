@@ -1,33 +1,42 @@
-import React, { useContext } from 'react';
+import { useContext, useCallback } from 'react';
 import { VirtualGridList } from '@enact/sandstone/VirtualList';
 import Poster from '../components/Poster';
 import { FavoritesContext } from '../store/FavoritesContext';
 
-const FavoritesView = () => {
-    const { favorites } = useContext(FavoritesContext);
+const FavoritesView = ({ onNavigate, ...rest }) => {
+	const { favorites } = useContext(FavoritesContext);
 
-    const renderItem = ({ index, ...rest }) => {
-        const item = favorites[index];
-        return (
-            <Poster
-                {...rest}
-                key={index}
-                src={item.posterPath}
-                label={item.title}
-            >
-                {item.title}
-            </Poster>
-        );
-    };
+	const handleItemClick = useCallback((index) => {
+		if (onNavigate) {
+			onNavigate(favorites[index]);
+		}
+	}, [favorites, onNavigate]);
 
-    return (
-        <VirtualGridList
-            dataSize={favorites.length}
-            itemRenderer={renderItem}
-            itemSize={{ minWidth: 300, minHeight: 450 }}
-            spacing={20}
-        />
-    );
+	const renderItem = useCallback(({ index, ...itemRest }) => {
+		const item = favorites[index];
+		return (
+			<Poster
+				{...itemRest}
+				key={index}
+				index={index}
+				src={item.posterPath}
+				label={item.title}
+				onClick={handleItemClick}
+			>
+				{item.title}
+			</Poster>
+		);
+	}, [favorites, handleItemClick]);
+
+	return (
+		<VirtualGridList
+			{...rest}
+			dataSize={favorites.length}
+			itemRenderer={renderItem}
+			itemSize={{ minWidth: 300, minHeight: 450 }}
+			spacing={20}
+		/>
+	);
 };
 
 export default FavoritesView;
