@@ -7,10 +7,13 @@ import SearchView from './SearchView';
 import SettingsView from './SettingsView';
 
 const HomePanel = ({ onNavigate, ...rest }) => {
-	// Pass onNavigate to views so they can trigger details
 	return (
 		<Panel {...rest}>
-			<Header title="CCloud" type="mini" />
+			<Header
+				title="CCloud"
+				subtitle="Your Ultimate Streaming Experience"
+				type="standard"
+			/>
 			<TabLayout orientation="vertical">
 				<Tab title="Movies" icon="play">
 					<MoviesView onNavigate={onNavigate} />

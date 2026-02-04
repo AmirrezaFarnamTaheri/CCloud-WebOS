@@ -6,20 +6,37 @@ export const FavoritesProvider = ({ children }) => {
 	const [favorites, setFavorites] = useState([]);
 
 	useEffect(() => {
-		const storedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
+		let storedFavorites = [];
+		try {
+			storedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
+		} catch (e) {
+			storedFavorites = [];
+		}
 		setFavorites(storedFavorites);
 	}, []);
 
 	const addFavorite = (item) => {
-		const updatedFavorites = [...favorites, item];
-		setFavorites(updatedFavorites);
-		localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
+		setFavorites((prev) => {
+			const next = prev.some((f) => f.id === item.id) ? prev : [...prev, item];
+            try {
+			    localStorage.setItem('favorites', JSON.stringify(next));
+            } catch (e) {
+                console.warn('Failed to persist favorites', e);
+            }
+			return next;
+		});
 	};
 
 	const removeFavorite = (id) => {
-		const updatedFavorites = favorites.filter((item) => item.id !== id);
-		setFavorites(updatedFavorites);
-		localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
+		setFavorites((prev) => {
+			const next = prev.filter((item) => item.id !== id);
+            try {
+			    localStorage.setItem('favorites', JSON.stringify(next));
+            } catch (e) {
+                console.warn('Failed to persist favorites', e);
+            }
+			return next;
+		});
 	};
 
 	const isFavorite = (id) => {

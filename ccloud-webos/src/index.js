@@ -1,24 +1,22 @@
 /* global ENACT_PACK_ISOMORPHIC */
-import {createRoot, hydrateRoot} from 'react-dom/client';
-
+import { createRoot, hydrateRoot } from 'react-dom/client';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
 
 const appElement = (<App />);
 
-// In a browser environment, render instead of exporting
+// In a real Enact environment, ENACT_PACK_ISOMORPHIC might be injected by Webpack.
+// If not defined, we default to client-side rendering.
+const isomorphic = typeof ENACT_PACK_ISOMORPHIC !== 'undefined' && ENACT_PACK_ISOMORPHIC;
+
 if (typeof window !== 'undefined') {
-	if (ENACT_PACK_ISOMORPHIC) {
-		hydrateRoot(document.getElementById('root'), appElement);
+    const root = document.getElementById('root');
+	if (!root) {
+		console.error('Missing #root element; cannot start application.');
+	} else if (isomorphic) {
+		hydrateRoot(root, appElement);
 	} else {
-		createRoot(document.getElementById('root')).render(appElement);
+		createRoot(root).render(appElement);
 	}
 }
 
 export default appElement;
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint.
-// Learn more: https://github.com/enactjs/cli/blob/master/docs/measuring-performance.md
-reportWebVitals();

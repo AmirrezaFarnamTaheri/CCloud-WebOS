@@ -1,13 +1,17 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useContext } from 'react';
 import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
 import Panels from '@enact/sandstone/Panels';
 import { FavoritesProvider } from '../store/FavoritesContext';
+import { SettingsProvider, SettingsContext } from '../store/SettingsContext';
 
 import HomePanel from '../views/HomePanel';
 import DetailsPanel from '../views/DetailsPanel';
 import PlayerPanel from '../views/PlayerPanel';
 
-const App = () => {
+import css from './App.module.less';
+
+const AppContent = () => {
+    const { settings } = useContext(SettingsContext);
 	const [index, setIndex] = useState(0);
 	const [selectedItem, setSelectedItem] = useState(null);
 	const [videoUrl, setVideoUrl] = useState('');
@@ -28,11 +32,21 @@ const App = () => {
 
 	// Handle Back Button
 	const handleBack = useCallback(() => {
-		setIndex((prevIndex) => Math.max(0, prevIndex - 1));
+		setIndex((prevIndex) => {
+            if (prevIndex === 2) {
+                setVideoUrl('');
+            }
+            return Math.max(0, prevIndex - 1);
+        });
 	}, []);
 
+    // Inject dynamic accent color
+    const appStyle = {
+        '--app-accent-color': settings.accentColor
+    };
+
 	return (
-		<FavoritesProvider>
+        <div className={css.app} style={appStyle}>
 			<Panels
 				index={index}
 				onBack={handleBack}
@@ -46,11 +60,22 @@ const App = () => {
 				/>
 				<PlayerPanel
 					url={videoUrl}
+                    autoPlay={settings.autoplay}
 					onBack={handleBack}
 				/>
 			</Panels>
-		</FavoritesProvider>
+        </div>
 	);
+};
+
+const App = (props) => {
+    return (
+        <SettingsProvider>
+            <FavoritesProvider>
+                <AppContent {...props} />
+            </FavoritesProvider>
+        </SettingsProvider>
+    );
 };
 
 export default ThemeDecorator(App);

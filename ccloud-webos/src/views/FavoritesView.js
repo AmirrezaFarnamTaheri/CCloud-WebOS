@@ -14,10 +14,12 @@ const FavoritesView = ({ onNavigate, ...rest }) => {
 
 	const renderItem = useCallback(({ index, ...itemRest }) => {
 		const item = favorites[index];
+		if (!item) return null;
+
 		return (
 			<Poster
 				{...itemRest}
-				key={index}
+				key={item.id}
 				index={index}
 				src={item.posterPath}
 				label={item.title}

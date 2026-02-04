@@ -6,12 +6,16 @@ const MoviesView = ({ onNavigate, ...rest }) => {
 	const [items, setItems] = useState([]);
 
 	useEffect(() => {
-		// Mock data for initial setup
+		// Enhanced Mock data
 		const data = Array.from({ length: 100 }).map((_, i) => ({
 			id: i,
-			title: `Movie ${i}`,
-			description: `Description for Movie ${i}`,
-			poster: 'https://via.placeholder.com/300x450'
+			title: `Movie Title ${i}`,
+			description: `This is a detailed description for Movie ${i}. It tells the story of an epic journey through visual aesthetics and refined UI experiences. The movie explores the depths of Enact framework capabilities.`,
+			poster: 'https://via.placeholder.com/300x450',
+			backdrop: 'https://via.placeholder.com/1920x1080',
+			rating: (Math.random() * 5 + 5).toFixed(1), // 5.0 - 10.0
+			year: 2020 + (i % 5),
+			duration: `${90 + (i % 60)} min`
 		}));
 		setItems(data);
 	}, []);
@@ -43,8 +47,8 @@ const MoviesView = ({ onNavigate, ...rest }) => {
 			{...rest}
 			dataSize={items.length}
 			itemRenderer={renderItem}
-			itemSize={{ minWidth: 300, minHeight: 450 }}
-			spacing={20}
+			itemSize={{ minWidth: 260, minHeight: 440 }}
+			spacing={24}
 		/>
 	);
 };

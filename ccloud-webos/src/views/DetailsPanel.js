@@ -5,6 +5,8 @@ import BodyText from '@enact/sandstone/BodyText';
 import Image from '@enact/sandstone/Image';
 import { FavoritesContext } from '../store/FavoritesContext';
 
+import css from './DetailsPanel.module.less';
+
 const DetailsPanel = ({ item, onPlay, ...rest }) => {
 	const { isFavorite, addFavorite, removeFavorite } = useContext(FavoritesContext);
 
@@ -22,29 +24,51 @@ const DetailsPanel = ({ item, onPlay, ...rest }) => {
 	if (!item) return <Panel {...rest}><Header title="Error" /></Panel>;
 
 	const favored = isFavorite(item.id);
+	const bgImage = item.backdrop || item.poster || item.posterPath;
 
 	return (
-		<Panel {...rest}>
-			<Header title={item.title} subtitle={item.subtitle || 'Details'} />
-			<div style={{ display: 'flex', flexDirection: 'row', padding: '24px' }}>
-				<div style={{ width: '300px', height: '450px', marginRight: '48px' }}>
+		<Panel {...rest} className={css.panel} style={{ backgroundImage: `url(${bgImage})` }}>
+			{/* Minimal Header to allow Back button functionality but kept transparent/minimal */}
+			<Header type="mini" slot="header" />
+
+			<div className={css.overlay}>
+				<div className={css.contentRow}>
 					<Image
 						src={item.poster || item.posterPath}
-						style={{ width: '100%', height: '100%' }}
+						className={css.poster}
+						sizing="cover"
 					/>
-				</div>
-				<div style={{ flex: 1 }}>
-					<BodyText>{item.description || 'No description available.'}</BodyText>
-					<div style={{ marginTop: '48px' }}>
-						<Button onClick={onPlay} icon="play">
-							Play
-						</Button>
-						<Button
-							icon={favored ? 'star' : 'starhol'}
-							onClick={handleFavoriteClick}
-						>
-							{favored ? 'Remove Favorite' : 'Add to Favorites'}
-						</Button>
+					<div className={css.info}>
+						<div className={css.title}>{item.title}</div>
+
+						<div className={css.metadata}>
+							{item.rating && <span className={css.rating}>★ {item.rating}</span>}
+							{item.year && <span>{item.year}</span>}
+							{item.duration && <span>{item.duration}</span>}
+							{item.seasons && <span>{item.seasons}</span>}
+						</div>
+
+						<BodyText className={css.description}>
+							{item.description || 'No description available for this content.'}
+						</BodyText>
+
+						<div className={css.actions}>
+							<Button
+								onClick={onPlay}
+								icon="play"
+								backgroundOpacity="transparent"
+								className={css.playButton}
+							>
+								Play
+							</Button>
+							<Button
+								icon={favored ? 'star' : 'starhol'}
+								onClick={handleFavoriteClick}
+								backgroundOpacity="transparent"
+							>
+								{favored ? 'Remove Favorite' : 'Add to Favorites'}
+							</Button>
+						</div>
 					</div>
 				</div>
 			</div>
