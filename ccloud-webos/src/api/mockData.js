@@ -8,7 +8,7 @@ const generateMockData = (type, count, startId = 0) => {
         poster: 'https://via.placeholder.com/300x450',
         backdrop: 'https://via.placeholder.com/1920x1080',
         posterPath: 'https://via.placeholder.com/300x450', // Ensure consistent property
-        rating: (Math.random() * 5 + 5).toFixed(1),
+        rating: Number((Math.random() * 5 + 5).toFixed(1)),
         year: 2020 + (i % 5),
         duration: type === 'movie' ? `${90 + (i % 60)} min` : undefined,
         seasons: type === 'series' ? `${1 + (i % 8)} Seasons` : undefined
@@ -20,7 +20,9 @@ export const mockMovies = generateMockData('movie', 100);
 export const mockSeries = generateMockData('series', 100, 1000);
 
 export const searchMockData = (query) => {
-    const q = query.toLowerCase();
+    const q = String(query ?? '').trim().toLowerCase();
+    if (!q) return [];
+
     const movies = mockMovies.filter(m => m.title.toLowerCase().includes(q));
     const series = mockSeries.filter(s => s.title.toLowerCase().includes(q));
     return [...movies, ...series];

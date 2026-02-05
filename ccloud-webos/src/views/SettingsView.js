@@ -42,7 +42,7 @@ const SettingsView = () => {
 			<Group
 				childComponent={RadioItem}
 				selectedProp="selected"
-				defaultSelected={selectedColorIndex >= 0 ? selectedColorIndex : 0}
+				selected={selectedColorIndex >= 0 ? selectedColorIndex : 0}
 				onSelect={handleColorSelect}
 				select="radio"
 			>

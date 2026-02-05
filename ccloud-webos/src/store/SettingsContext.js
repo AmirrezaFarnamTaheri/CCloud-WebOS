@@ -10,8 +10,10 @@ export const SettingsProvider = ({ children }) => {
 	});
 
 	useEffect(() => {
+		if (typeof window === 'undefined' || !window.localStorage) return;
+
 		try {
-			const stored = JSON.parse(localStorage.getItem('appSettings'));
+			const stored = JSON.parse(window.localStorage.getItem('appSettings'));
 			if (stored) {
 				setSettings((prev) => ({ ...prev, ...stored }));
 			}
@@ -24,7 +26,9 @@ export const SettingsProvider = ({ children }) => {
 		setSettings((prev) => {
 			const next = { ...prev, [key]: value };
 			try {
-				localStorage.setItem('appSettings', JSON.stringify(next));
+				if (typeof window !== 'undefined' && window.localStorage) {
+					window.localStorage.setItem('appSettings', JSON.stringify(next));
+				}
 			} catch (e) {
 				console.warn('Failed to save settings', e);
 			}

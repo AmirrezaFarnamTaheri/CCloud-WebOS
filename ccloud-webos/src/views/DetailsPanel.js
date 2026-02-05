@@ -25,9 +25,10 @@ const DetailsPanel = ({ item, onPlay, ...rest }) => {
 
 	const favored = isFavorite(item.id);
 	const bgImage = item.backdrop || item.poster || item.posterPath;
+    const panelStyle = bgImage ? { backgroundImage: `url(${bgImage})` } : undefined;
 
 	return (
-		<Panel {...rest} className={css.panel} style={{ backgroundImage: `url(${bgImage})` }}>
+		<Panel {...rest} className={css.panel} style={panelStyle}>
 			{/* Minimal Header to allow Back button functionality but kept transparent/minimal */}
 			<Header type="mini" slot="header" />
 

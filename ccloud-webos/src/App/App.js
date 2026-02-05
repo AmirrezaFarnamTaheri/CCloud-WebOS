@@ -37,7 +37,8 @@ const AppContent = () => {
                 setVideoUrl('');
             }
             return Math.max(0, prevIndex - 1);
-        });
+		});
+		return true;
 	}, []);
 
     // Inject dynamic accent color

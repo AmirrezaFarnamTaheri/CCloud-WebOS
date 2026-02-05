@@ -14,6 +14,3 @@ You can now view ccloud-webos in the browser.
 
 Note that the development build is not optimized.
 To create a production build, use npm run pack-p.
-
-Compiling...
-[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
