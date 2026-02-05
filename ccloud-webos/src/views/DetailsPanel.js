@@ -25,7 +25,7 @@ const DetailsPanel = ({ item, onPlay, ...rest }) => {
 
 	const favored = isFavorite(item.id);
 	const bgImage = item.backdrop || item.poster || item.posterPath;
-    const panelStyle = bgImage ? { backgroundImage: `url(${bgImage})` } : undefined;
+    const panelStyle = bgImage ? { backgroundImage: `url("${encodeURI(bgImage)}")` } : undefined;
 
 	return (
 		<Panel {...rest} className={css.panel} style={panelStyle}>

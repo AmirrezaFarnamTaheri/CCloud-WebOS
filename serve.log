@@ -5,12 +5,11 @@
 [baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
 Starting the development server...
 
-Compiled successfully!
+Compiled with warnings.
 
-You can now view ccloud-webos in the browser.
+[eslint]
+src/store/SettingsContext.js
+  Line 33:1:  Trailing spaces not allowed  @stylistic/js/no-trailing-spaces
 
-  Local:            http://localhost:8080
-  On Your Network:  http://192.168.0.2:8080
-
-Note that the development build is not optimized.
-To create a production build, use npm run pack-p.
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.

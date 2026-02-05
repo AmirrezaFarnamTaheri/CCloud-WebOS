@@ -16,12 +16,14 @@ const FavoritesView = ({ onNavigate, ...rest }) => {
 		const item = favorites[index];
 		if (!item) return null;
 
+        const posterSrc = item.posterPath || item.poster || item.backdrop;
+
 		return (
 			<Poster
 				{...itemRest}
 				key={item.id}
 				index={index}
-				src={item.posterPath}
+				src={posterSrc}
 				label={item.title}
 				onClick={handleItemClick}
 			>
