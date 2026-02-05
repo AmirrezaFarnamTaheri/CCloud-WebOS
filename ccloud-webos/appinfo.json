@@ -1,0 +1,10 @@
+{
+	"id": "com.pira.ccloud",
+	"version": "1.0.0",
+	"vendor": "Code3 Dev",
+	"type": "web",
+	"main": "index.html",
+	"title": "CCloud",
+	"icon": "icon.png",
+	"uiRevision": 2
+}
