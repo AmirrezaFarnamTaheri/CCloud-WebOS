@@ -1,0 +1,20 @@
+.poster {
+    /* Base styles for the poster */
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                box-shadow 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+    :global(.enact_sandstone_ImageItem_ImageItem_image) {
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    }
+
+    &:global(.spotlight-focused) {
+        transform: scale(1.08);
+        z-index: 10;
+
+        :global(.enact_sandstone_ImageItem_ImageItem_image) {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            border-color: var(--app-accent-color, #e6e6e6);
+        }
+    }
+}

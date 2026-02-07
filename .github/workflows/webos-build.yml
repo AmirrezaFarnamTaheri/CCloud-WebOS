@@ -1,0 +1,45 @@
+name: Build WebOS IPK
+
+on:
+  push:
+    paths:
+      - 'ccloud-webos/**'
+  workflow_dispatch:
+
+jobs:
+  build-webos:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install Enact CLI
+        run: npm install -g @enact/cli
+
+      - name: Install Dependencies
+        working-directory: ./ccloud-webos
+        run: npm ci
+
+      - name: Build Enact App
+        working-directory: ./ccloud-webos
+        run: npm run pack-p
+
+      - name: Create Output Directory
+        run: mkdir -p build_output
+
+      - name: Install webOS CLI
+        run: npm install -g @webosose/ares-cli
+
+      - name: Package IPK
+        run: ares-package ccloud-webos/dist -o build_output
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ccloud-webos-ipk
+          path: build_output/*.ipk

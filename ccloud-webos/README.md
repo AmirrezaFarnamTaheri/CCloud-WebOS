@@ -61,13 +61,17 @@ To package the app into an `.ipk` file for installation on a real LG TV or Emula
 ```bash
 ares-package dist
 ```
-This generates `com.pira.ccloud_1.0.0_all.ipk`.
+This generates `com.taheri.ccloud_1.0.0_all.ipk`.
 
 ### Installation
 Ensure Developer Mode is enabled on your TV.
 ```bash
-ares-install --device tv com.pira.ccloud_1.0.0_all.ipk
+ares-install --device tv com.taheri.ccloud_1.0.0_all.ipk
 ```
 
 ## API Configuration
 The base URL is configured in `src/api/client.js`. Update this file if the backend URL changes.
+
+## Detailed Installation Guide
+
+For a comprehensive guide on setting up the environment, building, and installing the application on your LG TV, please refer to [INSTALL.md](INSTALL.md).

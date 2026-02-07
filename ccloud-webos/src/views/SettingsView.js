@@ -1,10 +1,11 @@
 import { useContext, useCallback } from 'react';
 import { Header } from '@enact/sandstone/Panels';
-import BodyText from '@enact/sandstone/BodyText';
+import Scroller from '@enact/sandstone/Scroller';
 import SwitchItem from '@enact/sandstone/SwitchItem';
 import Input from '@enact/sandstone/Input';
 import RadioItem from '@enact/sandstone/RadioItem';
 import Group from '@enact/ui/Group';
+import Heading from '@enact/sandstone/Heading';
 import { SettingsContext } from '../store/SettingsContext';
 
 const SettingsView = () => {
@@ -27,36 +28,39 @@ const SettingsView = () => {
 	const selectedColorIndex = ['#e6e6e6', '#ff4d4d', '#4d79ff', '#50c878'].indexOf(settings.accentColor);
 
 	return (
-		<div style={{ padding: '24px' }}>
-			<Header title="Settings" type="mini" />
+		<Scroller>
+			<div style={{ padding: '0 2rem 2rem' }}>
+				<Header title="Settings" type="mini" subtitle="Customize your experience" />
 
-			<BodyText>Playback</BodyText>
-			<SwitchItem
-				selected={settings.autoplay}
-				onToggle={handleAutoplayToggle}
-			>
-				Autoplay Videos
-			</SwitchItem>
+				<Heading showLine>Playback</Heading>
+				<SwitchItem
+					selected={settings.autoplay}
+					onToggle={handleAutoplayToggle}
+				>
+					Autoplay Videos
+				</SwitchItem>
 
-			<BodyText style={{ marginTop: '24px' }}>Appearance (Accent Color)</BodyText>
-			<Group
-				childComponent={RadioItem}
-				selectedProp="selected"
-				selected={selectedColorIndex >= 0 ? selectedColorIndex : 0}
-				onSelect={handleColorSelect}
-				select="radio"
-			>
-				{colorLabels}
-			</Group>
+				<Heading showLine style={{ marginTop: '2rem' }}>Appearance</Heading>
+				<Group
+					childComponent={RadioItem}
+					selectedProp="selected"
+					selected={selectedColorIndex >= 0 ? selectedColorIndex : 0}
+					onSelect={handleColorSelect}
+					select="radio"
+				>
+					{colorLabels}
+				</Group>
 
-			<BodyText style={{ marginTop: '24px' }}>Server Configuration</BodyText>
-			<Input
-				value={settings.serverUrl}
-				onChange={handleUrlChange}
-				placeholder="Enter Server API URL"
-				style={{ width: '100%' }}
-			/>
-		</div>
+				<Heading showLine style={{ marginTop: '2rem' }}>Server Configuration</Heading>
+				<Input
+					value={settings.serverUrl}
+					onChange={handleUrlChange}
+					placeholder="Enter Server API URL"
+					style={{ width: '100%', maxWidth: '600px' }}
+					iconAfter="server"
+				/>
+			</div>
+		</Scroller>
 	);
 };
 
