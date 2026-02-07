@@ -1,7 +1,7 @@
 {
-	"id": "com.pira.ccloud",
+	"id": "com.taheri.ccloud",
 	"version": "1.0.0",
-	"vendor": "Code3 Dev",
+	"vendor": "Farnam Taheri",
 	"type": "web",
 	"main": "index.html",
 	"title": "CCloud",

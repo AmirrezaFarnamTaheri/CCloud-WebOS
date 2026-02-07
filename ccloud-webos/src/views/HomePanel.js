@@ -14,7 +14,10 @@ const HomePanel = ({ onNavigate, ...rest }) => {
 				subtitle="Your Ultimate Streaming Experience"
 				type="standard"
 			/>
-			<TabLayout orientation="vertical">
+			<TabLayout
+                orientation="vertical"
+                collapsed={false}
+            >
 				<Tab title="Movies" icon="play">
 					<MoviesView onNavigate={onNavigate} />
 				</Tab>

@@ -32,6 +32,10 @@ const AppContent = () => {
 
 	// Handle Back Button
 	const handleBack = useCallback(() => {
+		if (index === 0) {
+			return false; // Exit app on back from home
+		}
+
 		setIndex((prevIndex) => {
             if (prevIndex === 2) {
                 setVideoUrl('');
@@ -39,7 +43,7 @@ const AppContent = () => {
             return Math.max(0, prevIndex - 1);
 		});
 		return true;
-	}, []);
+	}, [index]);
 
     // Inject dynamic accent color
     const appStyle = {

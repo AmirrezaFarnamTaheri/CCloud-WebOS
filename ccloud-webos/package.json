@@ -2,7 +2,7 @@
 	"name": "ccloud-webos",
 	"version": "1.0.0",
 	"description": "A general template for an Enact Sandstone application.",
-	"author": "",
+	"author": "Farnam Taheri",
 	"main": "src/index.js",
 	"scripts": {
 		"serve": "enact serve",

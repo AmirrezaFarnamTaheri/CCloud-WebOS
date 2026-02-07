@@ -1,7 +1,29 @@
+/* Global Application Styles */
+:global(.enact-locale-en) {
+    font-family: 'Museo Sans', 'Helvetica Neue', Arial, sans-serif;
+}
+
 .app {
     background-color: #0d0d0d;
-    background: radial-gradient(circle at top right, #1a1a1a 0%, #000000 100%);
-    color: #e6e6e6;
+    background: radial-gradient(circle at top right, #1f1f2e 0%, #0a0a0f 100%);
+    color: #f0f0f5;
     height: 100vh;
     width: 100vw;
+    overflow: hidden;
+
+    /* Smooth focus transitions */
+    :global(.enact_sandstone_ImageItem_ImageItem_imageItem) {
+        transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                    box-shadow 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    :global(.enact_sandstone_ImageItem_ImageItem_imageItem.spotlight-focused) {
+        transform: scale(1.08);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+        z-index: 10;
+    }
+
+    :global(.enact_sandstone_Item_Item_item) {
+        transition: background-color 0.2s ease-in-out;
+    }
 }
