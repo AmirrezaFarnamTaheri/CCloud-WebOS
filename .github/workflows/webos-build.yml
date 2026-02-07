@@ -18,6 +18,9 @@ jobs:
         with:
           node-version: '18'
 
+      - name: Install Enact CLI
+        run: npm install -g @enact/cli
+
       - name: Install Dependencies
         working-directory: ./ccloud-webos
         run: npm ci
@@ -29,10 +32,11 @@ jobs:
       - name: Create Output Directory
         run: mkdir -p build_output
 
+      - name: Install webOS CLI
+        run: npm install -g @webosose/ares-cli
+
       - name: Package IPK
-        uses: docker://ghcr.io/webosbrew/webos-cli:latest
-        with:
-          args: ares-package ccloud-webos/dist -o build_output
+        run: ares-package ccloud-webos/dist -o build_output
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
