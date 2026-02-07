@@ -24,8 +24,16 @@ const AppContent = () => {
 
 	// Navigate to Player
 	const handlePlay = useCallback(() => {
-		// Mock URL for now, or use item.url if available
-		const url = selectedItem && selectedItem.url ? selectedItem.url : 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8';
+		// Use item.url if available, otherwise check for legacy or handle error
+		// We remove the hardcoded test stream to ensure clean production code
+		const url = selectedItem && selectedItem.url ? selectedItem.url : '';
+
+		if (!url) {
+			console.warn('No video URL available for this item');
+			// Optionally show a toast or alert here
+			return;
+		}
+
 		setVideoUrl(url);
 		setIndex(2);
 	}, [selectedItem]);
