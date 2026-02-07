@@ -18,19 +18,19 @@ const HomePanel = ({ onNavigate, ...rest }) => {
                 orientation="vertical"
                 collapsed={false}
             >
-				<Tab title="Movies" icon="play">
+				<Tab title="Movies" icon="play" aria-label="Movies Section">
 					<MoviesView onNavigate={onNavigate} />
 				</Tab>
-				<Tab title="Series" icon="list">
+				<Tab title="Series" icon="list" aria-label="Series Section">
 					<SeriesView onNavigate={onNavigate} />
 				</Tab>
-				<Tab title="Favorites" icon="star">
+				<Tab title="Favorites" icon="star" aria-label="Favorites Section">
 					<FavoritesView onNavigate={onNavigate} />
 				</Tab>
-				<Tab title="Search" icon="search">
+				<Tab title="Search" icon="search" aria-label="Search Section">
 					<SearchView onNavigate={onNavigate} />
 				</Tab>
-				<Tab title="Settings" icon="gear">
+				<Tab title="Settings" icon="gear" aria-label="Settings Section">
 					<SettingsView />
 				</Tab>
 			</TabLayout>

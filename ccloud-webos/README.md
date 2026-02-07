@@ -8,10 +8,10 @@ The project follows the Android Clean Architecture patterns adapted for React/En
 
 ```text
 src/
-├── api/           # Axios networking client
+├── api/           # Axios networking client & Mock Data
 ├── components/    # Reusable UI components (Poster, StreamPlayer)
-├── views/         # UI Panels/Screens (Home, Details, Player)
-├── store/         # State management (FavoritesContext)
+├── views/         # UI Panels/Screens (Home, Details, Player, Search, etc.)
+├── store/         # State management (FavoritesContext, SettingsContext)
 ├── assets/        # Images and other static resources
 └── App/           # Application Entry & Navigation Logic
 ```
@@ -23,11 +23,20 @@ The app uses `@enact/sandstone/Panels` for deep navigation:
 2.  **DetailsPanel**: Displays media information and actions (Play, Favorite).
 3.  **PlayerPanel**: Video player with HLS support.
 
+## Key Features
+
+*   **Movies & Series**: Browse content with poster grids.
+*   **Search**: Fully functional search with debouncing.
+*   **Favorites**: Local storage persistence for favorite items.
+*   **Settings**: Configurable server URL, autoplay settings, and accent colors.
+*   **Video Player**: HLS streaming support via `hls.js` and native WebOS video capabilities.
+
 ## Dependencies
 
 *   **@enact/sandstone**: UI library for TV apps.
 *   **axios**: HTTP client.
 *   **hls.js**: HLS video streaming support.
+*   **jest** & **@testing-library/react**: Comprehensive testing suite.
 
 ## Setup & Installation
 
@@ -40,6 +49,20 @@ The app uses `@enact/sandstone/Panels` for deep navigation:
     ```bash
     npm install
     ```
+
+## Testing
+
+The project includes a comprehensive test suite covering components, views, API clients, and state management.
+
+To run tests:
+```bash
+npm test
+```
+
+Or to watch for changes:
+```bash
+npm run test-watch
+```
 
 ## Build & Deployment
 
@@ -70,7 +93,7 @@ ares-install --device tv com.taheri.ccloud_1.0.0_all.ipk
 ```
 
 ## API Configuration
-The base URL is configured in `src/api/client.js`. Update this file if the backend URL changes.
+The base URL is configured in `src/api/client.js`. It can also be updated dynamically via the Settings screen in the app.
 
 ## Detailed Installation Guide
 

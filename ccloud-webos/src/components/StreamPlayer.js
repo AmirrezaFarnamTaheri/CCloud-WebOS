@@ -21,7 +21,7 @@ const StreamPlayer = ({ src, onBack, autoPlay, ...rest }) => {
     const handleError = useCallback((e) => {
         console.error('Video Error:', e);
         setLoading(false);
-        setError('Playback Error');
+        setError('Playback Error: Please try again later.');
     }, []);
 
 	useEffect(() => {
@@ -94,7 +94,7 @@ const StreamPlayer = ({ src, onBack, autoPlay, ...rest }) => {
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     zIndex: 10, backgroundColor: 'black'
                 }}>
-                    <Spinner transparent>Loading...</Spinner>
+                    <Spinner transparent aria-label="Loading content">Loading...</Spinner>
                 </div>
             )}
             {error && (
@@ -112,6 +112,7 @@ const StreamPlayer = ({ src, onBack, autoPlay, ...rest }) => {
                 ref={playerRef}
                 autoPlay={autoPlay}
                 poster={null}
+                aria-label="Video Player"
             >
                 {/* Fallback source for native compatibility in some browsers */}
                 {src && !(src.includes('.m3u8') || src.includes('.m3u')) && <source src={src} />}
