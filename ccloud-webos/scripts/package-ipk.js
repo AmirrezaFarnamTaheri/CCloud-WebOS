@@ -8,7 +8,7 @@
 // files. Copying `dist/` to the OS temp dir first keeps the hot path on the
 // Linux filesystem and speeds packaging up significantly.
 
-const crypto = require('crypto');
+const nodeCrypto = require('crypto');
 const {spawn} = require('child_process');
 const fsSync = require('fs');
 const fs = require('fs/promises');
@@ -73,7 +73,7 @@ async function pickTempRootDir() {
 }
 
 async function main() {
-	const projectRoot = path.resolve(__dirname, '..');
+	const projectRoot = process.cwd();
 	const distDir = path.join(projectRoot, 'dist');
 	const outDir = projectRoot;
 	const aresPackageJs = path.join(projectRoot, 'node_modules', '@webos-tools', 'cli', 'bin', 'ares-package.js');
@@ -88,7 +88,7 @@ async function main() {
 	const tempRoot = await pickTempRootDir();
 	const tempBase = path.join(
 		tempRoot,
-		`ccloud-webos-ipk-${process.pid}-${Date.now()}-${crypto.randomBytes(4).toString('hex')}`
+		`ccloud-webos-ipk-${process.pid}-${Date.now()}-${nodeCrypto.randomBytes(4).toString('hex')}`
 	);
 	const tempAppDir = path.join(tempBase, 'dist');
 
