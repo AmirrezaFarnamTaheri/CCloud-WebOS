@@ -11,10 +11,10 @@ jest.mock('../../components/StreamPlayer', () => (props) => (
     <div data-testid="stream-player" data-src={props.src} />
 ));
 
-describe('PlayerPanel', () => {
-    it('should render StreamPlayer with correct props', () => {
-        const url = 'http://example.com/video.mp4';
-        render(<PlayerPanel url={url} autoPlay={true} />);
+	describe('PlayerPanel', () => {
+	    it('should render StreamPlayer with correct props', () => {
+	        const url = 'http://example.com/video.mp4';
+	        render(<PlayerPanel url={url} autoPlay />);
 
         const player = screen.getByTestId('stream-player');
         expect(player).toBeInTheDocument();

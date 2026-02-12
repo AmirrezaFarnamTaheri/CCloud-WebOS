@@ -23,7 +23,7 @@ jest.mock('../../components/Poster', () => (props) => (
 ));
 
 jest.mock('../../api/mockData', () => ({
-    searchMockData: jest.fn((q) => [{ id: 1, title: 'Result Movie', poster: 'res.jpg' }])
+    searchMockData: jest.fn((q) => [{ id: q.length, title: 'Result Movie', poster: 'res.jpg' }])
 }));
 
 import { searchMockData } from '../../api/mockData';

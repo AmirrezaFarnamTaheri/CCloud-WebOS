@@ -12,7 +12,7 @@ jest.mock('@enact/sandstone/Item', () => (props) => <div onClick={props.onClick}
 jest.mock('@enact/sandstone/SwitchItem', () => (props) => (
     <div onClick={props.onToggle}>{props.children}: {props.selected ? 'On' : 'Off'}</div>
 ));
-jest.mock('@enact/sandstone/Slider', () => (props) => <div>Slider</div>);
+jest.mock('@enact/sandstone/Slider', () => () => <div>Slider</div>);
 jest.mock('@enact/sandstone/Input', () => (props) => (
     <input
         data-testid="server-input"

@@ -1,7 +1,6 @@
-import { render, screen, act } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import StreamPlayer from '../../components/StreamPlayer';
 import Hls from 'hls.js';
-import React from 'react';
 
 // Mock Enact components
 jest.mock('@enact/sandstone/VideoPlayer', () => {

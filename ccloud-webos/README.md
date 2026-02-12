@@ -41,14 +41,11 @@ The app uses `@enact/sandstone/Panels` for deep navigation:
 ## Setup & Installation
 
 1.  **Install Node.js**: Ensure you have Node.js (LTS recommended) installed.
-2.  **Install Enact CLI**:
-    ```bash
-    npm install -g @enact/cli
-    ```
-3.  **Install Dependencies**:
+2.  **Install Dependencies**:
     ```bash
     npm install
     ```
+    This installs Enact (`@enact/cli`) and the webOS CLI (`@webos-tools/cli`) locally, so you can use `npm run ...` and `npx ares-...` without global installs.
 
 ## Testing
 
@@ -82,14 +79,14 @@ npm run pack-p
 ### Packaging for TV
 To package the app into an `.ipk` file for installation on a real LG TV or Emulator:
 ```bash
-ares-package dist
+npm run ipk
 ```
 This generates `com.taheri.ccloud_1.0.0_all.ipk`.
 
 ### Installation
 Ensure Developer Mode is enabled on your TV.
 ```bash
-ares-install --device tv com.taheri.ccloud_1.0.0_all.ipk
+npx ares-install --device tv com.taheri.ccloud_1.0.0_all.ipk
 ```
 
 ## API Configuration

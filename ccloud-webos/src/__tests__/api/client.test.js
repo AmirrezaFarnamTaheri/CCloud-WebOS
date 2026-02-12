@@ -1,4 +1,3 @@
-import axios from 'axios';
 import client, { setApiBaseUrl } from '../../api/client';
 
 jest.mock('axios', () => {

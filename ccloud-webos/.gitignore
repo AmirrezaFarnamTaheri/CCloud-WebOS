@@ -10,6 +10,9 @@ coverage
 build
 dist
 
+# webOS packages
+*.ipk
+
 # misc
 .DS_Store
 npm-debug.log
